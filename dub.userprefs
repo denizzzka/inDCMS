@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="dub.json">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Default" PreferredExecutionTarget="plain" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="source\app.d">
+    <Files>
+      <File FileName="source\app.d" Line="4" Column="1" />
+      <File FileName="..\..\..\Users\DarkRiDDeR\AppData\Roaming\dub\packages\vibe-d-0.7.23\source\vibe\http\fileserver.d" Line="31" Column="81" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
