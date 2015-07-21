@@ -1,47 +1,51 @@
 import vibe.d;
-import std.string;
-import std.file;
+import temple;
+import mysql.connection;
+import std.stdio;
+import inDCMS.MySQL;
+import inDCMS.users;
 
+private MySQL db; 
 
-
-void image (HTTPServerRequest req, HTTPServerResponse res)
-{
-	auto file = format("./public/images/%s", req.params["f"]);
+static this()
+{	
+	// settings
+	db = new MySQL("host=localhost;port=3306;user=root;pwd=;db=dlang");
+	// connect to MySQL
+	db.connect();
 	
-	if(exists(file))
-	{
-		auto image = cast(ubyte[]) read(file);
-		res.writeBody(image,"image");
-	}
-	else
-	{
-		res.writeBody("Not Found","text/plain");
-	}
-}
-
-
-shared static this()
-{
+	auto settings = new HTTPServerSettings;
+	settings.sessionStore = new MemorySessionStore;
+	settings.bindAddresses = ["127.0.0.1"];
+	settings.port = 8000;
 
 	auto router = new URLRouter;
-	router
-		.get("/", &index)
-		// matches all GET requests
-		.get("*", serveStaticFiles("./public/"));
+	router.get("/", &index);
+
+	// registration of add-ons
+	new Users(router, db);
 
 
-
-
-	auto settings = new HTTPServerSettings;
-	settings.port = 8000;
-	settings.bindAddresses = ["::1", "127.0.0.1"];
+	// all static files
+	router.get("*", serveStaticFiles("./public/"));
 
 	listenHTTP(settings, router);
 	logInfo("Please open http://127.0.0.1:8000/ in your browser.");
+
 }
 
 void index(HTTPServerRequest req, HTTPServerResponse res)
 {
-	res.writeBody("Hello, World!");
-	//res.render!("index.dt", req);
+
+    auto tlate = compile_temple_file!"index.dte";
+
+    auto context = new TempleContext();
+
+	tlate.render(res.bodyWriter, context);
+}
+
+// destructor
+static ~this()
+{
+	db.close();
 }

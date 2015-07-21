@@ -1,0 +1,8 @@
+% import std.conv;
+<%= render!"head.dte"() %>
+registration
+	<p>Hello, <%= var.name %>!</p>
+	<% foreach(i; 0..3) { %>
+		%= "Index: " ~ to!string(i)
+	<% } %>
+<%= render!"footer.dte"() %>
