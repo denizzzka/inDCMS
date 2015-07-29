@@ -1,17 +1,13 @@
 <%= render!"head.dte"() %>
 
-% if(!var("isNewReg").get!bool) {
+% if(!var("isAutho").get!bool) {
 
 <form action="?" method="post">
 	<label>Логин (цифры, англ. алфавит, символы _ и -)[4-20]:</label>
 	<input name="login" type="text" maxlength="20" pattern="^[\\da-zA-Z_-]{4,}$" autofocus required>
 	<label>Пароль [5-20]:</label>
 	<input name="pass" type="password" maxlength="20" pattern="^.{5,}$" required>
-	<label>Повторите пароль [5-20]:</label>
-	<input name="pass2" type="password" maxlength="20" pattern="^.{5,}$" required>
-	<label>E-mail [7-20]:</label>
-	<input name="mail" type="email" maxlength="20" pattern="^.{7,}$" required>
-	<input type="submit" value="OK">
+	<input type="submit" value="Войти">
 </form>
 
 % }

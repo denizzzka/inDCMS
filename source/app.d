@@ -3,7 +3,8 @@ import temple;
 import mysql.connection;
 import std.stdio;
 import inDCMS.MySQL;
-import inDCMS.users;
+import inDCMS.functions;
+import inDCMS.users.controller;
 
 private MySQL db; 
 
@@ -23,8 +24,8 @@ static this()
 	router.get("/", &index);
 
 	// registration of add-ons
-	new Users(router, db);
-
+	auto cUsers = new controllerUsers(router, db);
+	funcsGlobalVars ~= &cUsers.toGlobalVars; // добавление глобальных переменных для шаблонов
 
 	// all static files
 	router.get("*", serveStaticFiles("./public/"));
@@ -41,8 +42,9 @@ void index(HTTPServerRequest req, HTTPServerResponse res)
 
     auto context = new TempleContext();
 
-	tlate.render(res.bodyWriter, context);
+	funcs.render(tlate, context, req, res);
 }
+
 
 // destructor
 static ~this()
