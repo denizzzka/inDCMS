@@ -1,31 +1,36 @@
-﻿module inDCMS.users.controller;
+﻿module indcms.users.controller;
+
 import vibe.d;
+
+import mysql.connection;
+
 import temple;
+
 import std.stdio;
 import std.digest.sha;
-import mysql.connection;
-import inDCMS.MySQL;
-import inDCMS.functions;
-import inDCMS.users.models.users;
+
+import indcms.mysql;
+import indcms.functions;
+import indcms.users.models.users;
 
 
-class controllerUsers
+class UsersController
 {
-	private string dirViews = "/users/";
+	private string viewsDir = "/users/";
 	private MySQL db;
-	private ModelUsers users;
+	private UsersModel users;
 	private URLRouter router;
 	
 	this(URLRouter router, MySQL db) {
 		this.db = db;
 		this.router = router;
-		users = new ModelUsers(db);
+		users = new UsersModel(db);
 
 		router
-			.any(dirViews ~ "in.dhtml", &(users.userIn))
-			.get(dirViews ~ "out.dhtml", &(users.userOut))
-			.get(dirViews ~ "profile/:profileLogin", &(users.userProfile))
-			.any(dirViews ~ "reg.dhtml", &(users.userReg));
+			.any(viewsDir ~ "in.dhtml", &(users.userIn))
+			.get(viewsDir ~ "out.dhtml", &(users.userOut))
+			.get(viewsDir ~ "profile/:profileLogin", &(users.userProfile))
+			.any(viewsDir ~ "reg.dhtml", &(users.userReg));
 	}
 
 	public void toGlobalVars(TempleContext context, HTTPServerRequest req, HTTPServerResponse res)
@@ -41,4 +46,4 @@ class controllerUsers
 		return hash224; //toHexString(hash224);
 	}
 }
-alias ctrUsers = controllerUsers;
+alias UsersCtr = UsersController;

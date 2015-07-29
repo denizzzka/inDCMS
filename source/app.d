@@ -1,10 +1,15 @@
 import vibe.d;
-import temple;
+
 import mysql.connection;
+
+import temple;
+
 import std.stdio;
-import inDCMS.MySQL;
-import inDCMS.functions;
-import inDCMS.users.controller;
+
+import indcms.mysql;
+import indcms.functions;
+import indcms.users.controller;
+
 
 private MySQL db; 
 
@@ -24,8 +29,8 @@ static this()
 	router.get("/", &index);
 
 	// registration of add-ons
-	auto cUsers = new controllerUsers(router, db);
-	funcsGlobalVars ~= &cUsers.toGlobalVars; // добавление глобальных переменных для шаблонов
+	auto usersController = new UsersController(router, db);
+	funcsGlobalVars ~= &usersController.toGlobalVars; // добавление глобальных переменных для шаблонов
 
 	// all static files
 	router.get("*", serveStaticFiles("./public/"));
@@ -37,11 +42,8 @@ static this()
 
 void index(HTTPServerRequest req, HTTPServerResponse res)
 {
-
     auto tlate = compile_temple_file!"index.dte";
-
     auto context = new TempleContext();
-
 	funcs.render(tlate, context, req, res);
 }
 

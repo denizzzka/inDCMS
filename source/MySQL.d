@@ -1,9 +1,12 @@
-﻿module inDCMS.MySQL;
+﻿module indcms.mysql;
+
 import mysql.connection;
+
+import std.datetime;
 import std.stdio;
 import std.string;
-import std.datetime;
 import std.variant;
+
 
 class MySQL
 {
