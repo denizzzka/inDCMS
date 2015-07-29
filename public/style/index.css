@@ -1,0 +1,27 @@
+
+
+
+footer {
+	/*margin: -40px 0 0 5%;*/
+	padding-top: 10px;
+	height: 20px;
+	color: #333;
+	text-align: center;
+	border-top: 1px solid #999;
+	width:  90%;
+}
+footer a {
+	color: #333;
+}
+
+
+
+label 
+{
+	display: block;
+	font-weight: bold;
+}
+input
+{
+	display: block;
+}
