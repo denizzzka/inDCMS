@@ -1,12 +1,12 @@
 {
-	"fileVersion": 1,
 	"versions": {
+		"libasync": "0.7.1",
 		"memutils": "0.3.8",
-		"temple": "0.7.3",
-		"vibe-d": "0.7.23",
-		"libevent": "2.0.1+2.0.16",
 		"openssl": "1.1.4+1.0.1g",
-		"libev": "5.0.0+4.04",
-		"libasync": "0.7.1"
-	}
+		"vibe-d": "0.7.23",
+		"temple": "0.7.3",
+		"libevent": "2.0.1+2.0.16",
+		"libev": "5.0.0+4.04"
+	},
+	"fileVersion": 1
 }
