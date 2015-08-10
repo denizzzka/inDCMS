@@ -18,6 +18,10 @@
 			"targetType": "executable"
 		}
 	],
-	"stringImportPaths": ["./views/", "./views/users/"],
+	"stringImportPaths": [
+		"./views/",
+		"./views/users/",
+		"~/.dub/packages/temple-*/test/"
+	],
 	"license": "MIT License"
 }
