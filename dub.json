@@ -3,12 +3,9 @@
 	"description": "Micro content management system written in the programming language D using vibe.d framework (Russia).",
 	"copyright": "Copyleft © 2015 The development team of inDCMS (DarkRiDDeR, ...)",
 	"authors": ["DarkRiDDeR"],
-
-
+	
 	"dependencies": {
 		"vibe-d": "~>0.7.19",
-	},
-	"dependencies": {
 		"temple": "~>0.7.3"
 	},
 	"versions": [
