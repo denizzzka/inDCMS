@@ -8,4 +8,4 @@ addons:
       - debian-sid
 
 script:
-  - dub build --debug
+  - dub build
