@@ -2,12 +2,8 @@
 
 Micro content management system written in the programming language D using vibe.d framework (Russia)
 Микро система управления контентом, написанная на языке программирования D при помощи веб-фреймвора vibe.d.
-<<<<<<< HEAD
-Обсуждение проекта и прочее на форуме: http://dlanguage.tk/viewforum.php?id=15
-=======
 
-Обсуждение проекта и прочее на форуме: http://dlanguage.ru/viewforum.php?id=15
->>>>>>> origin/master
+Обсуждение проекта и прочее на форуме: http://dlanguage.tk/viewforum.php?id=15
 
 # Сборка и запуск
 
@@ -31,4 +27,5 @@ Micro content management system written in the programming language D using vibe
 - форум
 
 # License
+
 inDCMS is distributed under the http://opensource.org/licenses/MIT
