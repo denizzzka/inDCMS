@@ -1,0 +1,14 @@
+language: d
+
+d:
+  - dmd-2.067.0
+
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - debian-sid
+
+script:
+  - dub build
