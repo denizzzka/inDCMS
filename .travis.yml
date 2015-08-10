@@ -16,7 +16,7 @@ install:
 
 script:
   - dub build
-  - dub test --coverage --combined; true # Always return true, because currently successful automatic run isn't possible
+  - dub test --coverage || true # Always return true, because currently successful automatic run isn't possible
 
 after_success:
   # Sends coverage info:
