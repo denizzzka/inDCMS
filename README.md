@@ -1,9 +1,34 @@
 ﻿# inDCMS
-Micro content management system written in the programming language D using vibe.d framework (Russia)
 
+Micro content management system written in the programming language D using vibe.d framework (Russia)
 Микро система управления контентом, написанная на языке программирования D при помощи веб-фреймвора vibe.d.
+<<<<<<< HEAD
+Обсуждение проекта и прочее на форуме: http://dlanguage.tk/viewforum.php?id=15
+=======
 
 Обсуждение проекта и прочее на форуме: http://dlanguage.ru/viewforum.php?id=15
+>>>>>>> origin/master
+
+# Сборка и запуск
+
+Требуется установленный сервер PostgreSQL.
+Собираем с помощью dub run. Следуем инструкции командной строки. Необходимо будет ввести логин и пароль суперпользователя. Будет создана база данных "indcms" и роли "indcms_system", "indcms_users".
+Затем открываем в браузере http://127.0.0.1:8000/
+
+# TODO
+
+- ~~регистрация пользователей~~
+- ~~авторизация/выход~~
+- защита от брута паролей (+капча)
+- восстановление паролей
+- регистрация/смена пароля с помощью кода активации, высланного на e-mail
+- профиль пользователя, его редактирование
+- новостная лента
+- комментарии к новостям
+- создание статичных страниц в админ-панели
+- раздел админ-панели для выделения различных прав доступа для пользователей (админ, модератор, модератор комментариев и т.д.)
+- опросы
+- форум
 
 # License
 inDCMS is distributed under the http://opensource.org/licenses/MIT

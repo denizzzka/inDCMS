@@ -1,27 +1,261 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+html, body, #wrap {
+	height: 100%;
+}
+body > #wrap {
+	height: auto;
+	min-height: 100%;
+}
+body {
+	font-family: "Franklin Gothic", Arial, sans-serif;
+	min-width: 960px;
+	max-width: 2560px;
+	margin: 0 auto;
+	color: #000;
+	font-size: 11pt;
+}
+header, footer, nav
+{
+	display: block;
+}
+
+#container {
+	width: 100%;
+	padding-bottom: 70px; /* must be same height as the footer */
+}
+
+.fontBook {
+	font-family: "Franklin Gothic Book", "Franklin Gothic", Arial, sans-serif;
+}
+.fontDemi {
+	font-family: "Franklin Gothic Demi", "Franklin Gothic", Arial, sans-serif;
+}
+.fontMediumCond {
+	font-family: "Franklin Gothic Medium Cond", "Franklin Gothic", Arial, sans-serif;
+}
+
+
+header {
+	padding: 4px 10px 6px 10px;
+	background: #F8F8F8;
+}
+#logo 
+{
+	float: left;
+	text-align: center;
+}
+#logo > div 
+{
+	font-size: 83%;
+	margin-top: 2px;
+	color: #002;	
+}
+header .fRight{
+	width: 73%;
+}
+ 
+
+
+
+#mainNavig
+{
+	width: 100%;
+	height:40px;
+    color: #DDD;
+    background: #3151ad;
+}
+#mainNavig div > div
+{
+	margin-top: 2px;
+	height:34px;
+	line-height: 34px; /* IE8+   */
+	vertical-align: middle;
+}
+#mainNavig .fLeft > div
+{
+	float: left;
+	padding: 0 4px;
+	border-right: 2px #BFD4F3 solid;
+}
+#mainNavig .fRight > div
+{
+	float: left;
+	padding: 0 6px;
+}
+#mainNavig div > div:last-child
+{
+	border: none;
+}
+#mainNavig div a img
+{
+	clear: both;
+}
+#mainNavig div a
+{
+	display: inline-block;
+	vertical-align: middle;
+	color: #FFF;
+	text-decoration: none;
+	line-height: 1.25;
+	margin: 4px;
+}
+
+
+#directionsWork {
+	text-align: justify;
+	padding: 20px 2%;
+	font-size: 137%; 
+	text-align: center;
+}
+#directionsWork > div {
+	display: inline-block;
+	margin: 1%;
+    height: 134px;
+	text-align: center;
+    white-space: normal;
+    line-height: 134px;
+    max-width: 200px;
+    background: url('./images/direction.png') center top no-repeat;
+}
+#directionsWork a
+ {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.25;
+	text-decoration: none;
+    color: #5a5a5a;
+ }   
+#directionsWork a:hover
+ {
+	text-decoration: underline;
+ } 
+
+
+
+#projects
+{
+	/*background: #000;*/
+	padding: 20px 0.5%; 
+	width: 99%;
+	background: #003;
+}
+#projects > div
+{	
+	width: 16.66%;
+	margin-top: 11px;
+	float: left;
+	text-align: center;
+	perspective: 1600px;
+}
+.card
+{
+	transform-style: preserve-3d;
+	display: inline-block;
+}
+.card div
+{
+	width: 400px;
+}
+#projects .right
+{
+	height: 444px;
+	line-height: 400px;
+	text-align: center;
+	background: #eee;
+	transform-origin: center right;
+	margin-top: -444px;
+	z-index: 10;
+}
+#projects .content
+{
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.4;
+	text-align: justify;
+	padding: 6px;
+	font-weight: bold;
+	overflow-y: auto;
+	color: #000;
+	text-rendering: geometricPrecision;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+.card .front
+{
+	background: #FFF;
+}
+#projects img
+{
+	max-width: 100%;
+	width: auto; 
+	height: auto;
+}
+@keyframes cube
+{
+	from { transform: rotateY(0); }
+	to { transform: rotateY(-90deg); }
+}
+@keyframes cubeBack
+{
+	from { transform: rotateY(-60deg); }
+	to { transform: rotateY(0); }
+	display: none;
+}
+
+#projects .card
+{
+	animation: 1.5s forwards ease-out cube paused;
+}
+
+h1, h2, h3
+{
+	text-align: center;
+}
+
+.content label, .content input
+{
+	display: block;
+}
 
 
 
 footer {
-	/*margin: -40px 0 0 5%;*/
-	padding-top: 10px;
-	height: 20px;
-	color: #333;
+	margin-top: -60px;
+	padding-top: 5px;
+    background: #102972;
+	height: 53px;
+	color: #FFF;
 	text-align: center;
-	border-top: 1px solid #999;
-	width:  90%;
+	border-top: 2px solid #061056;
 }
 footer a {
 	color: #333;
 }
-
-
-
-label 
-{
-	display: block;
-	font-weight: bold;
+footer p {
+	margin-top: 4px;
 }
-input
+
+
+/* CLEAR FIX*/
+.clear:after {content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; 
+    height: 0;}
+.clear {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clear { height: 1%;}
+.clear {display: block;}
+/* End hide from IE-mac */
+
+.fLeft
 {
-	display: block;
+	float: left !important;
+}
+.fRight
+{
+	float: right !important;
 }

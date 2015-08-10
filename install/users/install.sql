@@ -11,7 +11,7 @@ CREATE TABLE "users"(
  "name" Character varying(20),
  "patronymic" Character varying(20),
  "aboutMyself" Character varying(250),
- "regTime" Integer NOT NULL
+ "regTime" Timestamp NOT NULL
 );
 
 -- Add keys for table users
@@ -72,10 +72,17 @@ ALTER TABLE "users_permissions" ADD CONSTRAINT "Relationship5" FOREIGN KEY ("idA
 CREATE USER indcms_users WITH PASSWORD '1';
 GRANT SELECT ON TABLE addons TO indcms_users;
 GRANT SELECT, UPDATE, INSERT, DELETE, TRUNCATE ON TABLE "users", "users_new", "users_permissions", "addons_permissions"  TO indcms_users;
+GRANT USAGE, SELECT ON SEQUENCE "users_idUser_seq", "addons_permissions_idAddonPermission_seq", "users_new_idNew_seq", "users_permissions_idUserPermission_seq"
+	TO indcms_users;
+
+-- permissions for addons
+INSERT INTO "addons_permissions" ("idAddon", "systemName")
+  VALUES  (1, 'admin'), /* администратор сайта */
+          (1, 'user');  /* обычный пользователь (по умолчанию) */ 
 
 -- admin, password=11111
 INSERT INTO "users" ("login", "password", "mail", "regTime")
-  VALUES ('userAdmin', 'DCA08C944A652FBF0131BF7B15ECD38FDE5539D5A6226171379A1816', 'admin@this.ru', 0 /* timestamp on postgreSQL or unix timestamp */);
+  VALUES ('userAdmin', 'DCA08C944A652FBF0131BF7B15ECD38FDE5539D5A6226171379A1816', 'admin@this.ru', CURRENT_TIMESTAMP);
 
 -- permissions of admin
 INSERT INTO "users_permissions" ("idUser", "idAddonPermission", "idAddon")

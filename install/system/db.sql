@@ -1,0 +1,7 @@
+/* SUPERUSER */
+
+-- database
+
+CREATE DATABASE indcms
+  WITH ENCODING = 'UTF8'
+       CONNECTION LIMIT = -1;

@@ -3,24 +3,291 @@
 	<head>
 		<meta charset="utf-8">
 		<title>
-			Заголовок страницы
+			<%= var("title") %>
 		</title>
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
   		<link rel="stylesheet" href="/style/index.css" type="text/css">
+		<script type="text/javascript">
+			var isTransform = true; // поддержка трансформации и анимацииvar 
+			var size = 1; // множитель размера шрифта
+			var projects;
+			var divProjects = {};
+
+
+			function getInternetExplorerVersion()
+			{
+				var rv = -1;
+				if (navigator.appName == 'Microsoft Internet Explorer')
+				{
+					var ua = navigator.userAgent;
+					var re  = new RegExp("MSIE ([0-9]{1,}[\\.0-9]{0,})");
+					if (re.exec(ua) != null)
+						rv = parseFloat( RegExp.$1 );
+				}
+				else if (navigator.appName == 'Netscape')
+				{
+					var ua = navigator.userAgent;
+					var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\\.0-9]{0,})");
+					if (re.exec(ua) != null)
+						rv = parseFloat( RegExp.$1 );
+				}
+				return rv;
+			}
+			function getStyle(oElm, strCssRule)
+			{
+				var strValue = "";
+				if(document.defaultView && document.defaultView.getComputedStyle)
+				{
+					strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+				}
+				else if(oElm.currentStyle)
+				{
+					strCssRule = strCssRule.replace(/\\-(\\w)/g, function (strMatch, p1){
+						return p1.toUpperCase();
+					});
+					strValue = oElm.currentStyle[strCssRule];
+				}
+				return strValue;
+			}
+			function getPaddingPx (oElm, strCssRule)
+			{
+				var d = getStyle (oElm, strCssRule);
+				d = parseInt(d.replace(/\\D/g, ''));
+				return d;
+			}
+
+
+
+			function initAnimationCard ()
+			{
+				projects = document.getElementById('projects');
+				divProjects = projects.childNodes;
+				transform = Math.round(document.getElementById('mainNavig').offsetWidth / 2);
+
+				if (!("transformStyle" in document.body.style) || !("animationName" in document.body.style) || getInternetExplorerVersion()!==-1)
+				{
+					isTransform = false;
+					return;
+				}
+
+				for (var x = 0; x < 6; ++x)
+				{
+					document.getElementsByClassName('card')[x].onmouseover = function(){
+						this.style.animationName = "cube";
+						this.style.animationDuration = "1.5s";
+						this.style.animationPlayState = "running";
+					}
+					document.getElementsByClassName('card')[x].onmouseout = function(){
+						this.style.animationDuration = "0.3s";
+						this.style.animationName = "cubeBack";
+					}
+				}		
+
+			}
+
+
+			function widthImgProjects ()
+			{
+				var numberElements = 6.3;
+				var ratio = 0.95;
+				var mainWidth = document.getElementById('mainNavig').offsetWidth * 0.99;
+				var widthImages = mainWidth / numberElements;
+				projects.style.width = mainWidth + 'px';
+				mainWidth = Math.round(widthImages);
+
+				var y = 1600;
+				var n = widthImages;
+				if(isTransform) widthImages = (2*y*n)/(2*y+n); // высчитываем ширинну изображения (меньше оригинала), чтобы влезло проекционное изображение
+				var k = widthImages / n;
+				var mainHeight = n * ratio; 
+
+				var heightImages = widthImages * ratio;
+				var transform = Math.round(widthImages / 2);
+				widthImages = Math.ceil(widthImages);
+				if(isTransform) 
+				{
+					var paddingTop = (mainHeight - heightImages)/2;
+					projects.style.paddingTop = Math.round(paddingTop)+1 + 'px';
+					projects.style.height = Math.round(mainHeight - paddingTop) + 'px';
+				}
+				else
+				{
+					projects.style.height = Math.round(mainHeight)+1 + 'px';
+				}
+				heightImages = Math.round(heightImages);
+				mainHeight = Math.round(mainHeight); 
+
+		
+				for (var i = 0; i < divProjects.length; i++)
+				{
+					var div = divProjects[i];
+					for (var x = 0; x < div.childNodes.length; x++)
+					{
+						var card = div.childNodes[x];
+
+						if (card.className === "card")
+						{
+							card.style.width = widthImages + 'px';
+							card.style.height = heightImages + 'px';
+
+							for (var j = 0; j < card.childNodes.length; j++)
+							{
+								var block = card.childNodes[j];
+
+								if (block.className === "front") 
+								{
+									// поддержка трансформации и анимации, кроме IE
+									if (isTransform) {
+										block.style.transform = "translateZ(" + transform + "px)";
+									} else { // откл. трансформацию и анимацию
+										isTransform = false;
+									}
+
+									block.style.width = widthImages + 'px';
+									block.style.height = heightImages + 'px';
+									block.getElementsByTagName('img')[0].style.width = widthImages + 'px';
+									block.getElementsByTagName('img')[0].style.height = heightImages + 'px';
+								}
+								else if (block.className === "right")
+								{
+									block.style.width = widthImages + 'px';
+									block.style.height = heightImages + 'px';
+									block.style.marginTop = -heightImages + 'px';
+									block.style.lineHeight = heightImages + 'px';
+									var divC = block.getElementsByTagName('div')[0];
+									divC.style.width = (widthImages - getPaddingPx(divC, 'padding-left') - getPaddingPx(divC, 'padding-right')) + 'px';
+									divC.style.maxHeight = (heightImages - getPaddingPx(divC, 'padding-top') - getPaddingPx(divC, 'padding-bottom')) + 'px';
+									divC.style.fontSize = Math.round(k * 100 * size) + "%"; // проекционный шрифт подгоняем под оригинальный размер шрифта 
+									divC.style.lineHeight = 1.25 * k;
+
+									if (isTransform) {
+										block.style.transform = "rotateY(-270deg) translateX(" + transform + "px)";
+									} else { // срыть блоки с текстом
+										block.style.display = 'none';
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			window.onload = function ()
+			{
+				window.onresize = function ()
+				{
+					widthImgProjects ();
+				}
+			}
+		</script>
 	</head>
 	<body>
-	<header>
-	</header>
+		<div id="wrap">
+			<div id="container" class="clear">
+				<header>
+					<div id="logo"><a href="/">
+						<img src="/style/images/logo.png" alt="dlang"><img src="/style/images/logo2.png" alt="dlang"></a>
+						<div class="fontBook">Русскоязычный сайт по языку программирования D :: Russian-speaking D programming language site</div>
+					</div>
+					
+					<div class="clear"></div>
+				</header>
 
-<%= render!"users.panel.dte"() %>
+				<nav id="mainNavig" class="fontDemi">
+					<div class="fLeft">
+						<div><a href="/">Новости сайта</a></div>
+						<div><a href="/">Новости D</a></div>
+						<div><a href="/">Форум</a></div>
+						<div><a href="/">Программное обеспечение</a></div>
+						<div><a href="/">Библиотека</a></div>
+						<div><a href="/">inDCMS</a></div>
+						<div><a href="/">Обратная связь</a></div>
+					</div>
+					<div class="fRight">
+						<%= render!"users.panel.dte"() %>
+					</div>
+				</nav>
+				<div class="clear"></div>
+
+			  
+
+				<div id="projects">
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/1.html"><img src="/style/images/1.png" alt="Автобусы"></a></div>
+							<div class="right">
+								<div class="content">
+									Все новости из мира программирования на языке D
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/2.html"><img src="/style/images/2.png" alt="Природа"></a></div>
+							<div class="right">
+								<div class="content">
+									Рускоязычное сообщество языка программирования D, которое никогда не откажет в помощи
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/3.html"><img src="/style/images/3.png" alt="Дом"></a></div>
+							<div class="right">
+								<div class="content">
+									Большое количество различного программного обеспечение для разработки на D
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/4.html"><img src="/style/images/4.png" alt="Детали машин"></a></div>
+							<div class="right">
+								<div class="content">
+									Большая библиотека различных книг и статей о языке программирования D 
+								</div>
+							</div>
+					</div>
+					</div>
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/5.html"><img src="/style/images/5.png" alt="Детали машин"></a></div>
+							<div class="right">
+								<div class="content">
+									inDCMS — CMS, на которой основан данный сайт, полностью написанная на D при помощи веб-фреймворка Vibe.d
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="card">
+							<div class="front"><a href="./projects/6.html"><img src="/style/images/1.png" alt="Детали машин"></a></div>
+							<div class="right">
+								<div class="content">
+									inDCMS — CMS, на которой основан данный сайт, полностью написанная на D при помощи веб-фреймворка Vibe.d
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+
 
 <h1><%= var("title") %></h1>
 
 % if(var("success") != null) {
+ <div class="success">
     <%= var("success") %>
+</div>
 % }
 % if(var("error") != null) {
+ <div class="error">
     <%= var("error") %>
+</div>
 % }

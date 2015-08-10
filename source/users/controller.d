@@ -2,48 +2,59 @@
 
 import vibe.d;
 
-import mysql.connection;
-
 import temple;
 
 import std.stdio;
-import std.digest.sha;
 
-import indcms.mysql;
-import indcms.functions;
+import indcms.system.addon;
+import indcms.system.postgresql;
+import indcms.system.system;
+import indcms.users.users;
+import indcms.users.models.profiles;
 import indcms.users.models.users;
 
 
-class UsersController
+const string ADDON_NAME = "users";
+
+//constructor of module
+static this()
+{
+	new UsersController();
+}
+
+class UsersController: AddonController
 {
 	private string viewsDir = "/users/";
-	private MySQL db;
-	private UsersModel users;
-	private URLRouter router;
-	
-	this(URLRouter router, MySQL db) {
-		this.db = db;
-		this.router = router;
-		users = new UsersModel(db);
+	private UsersModel usersModel;
+	private ProfilesModel profilesModel;
 
-		router
-			.any(viewsDir ~ "in.dhtml", &(users.userIn))
-			.get(viewsDir ~ "out.dhtml", &(users.userOut))
-			.get(viewsDir ~ "profile/:profileLogin", &(users.userProfile))
-			.any(viewsDir ~ "reg.dhtml", &(users.userReg));
+	this() {
+		super(ADDON_NAME, true);
+
+		usersModel = new UsersModel(this.db);
+		profilesModel = new ProfilesModel(this.db);
+
+		System.getRouter()
+			.any(viewsDir ~ "in.dhtml", &usersModel.userIn)
+			.get(viewsDir ~ "out.dhtml", &usersModel.userOut)
+			.get(viewsDir ~ "profile/:profileLogin", &profilesModel.userProfile)
+			.any(viewsDir ~ "reg.dhtml", &usersModel.userReg);
+
+		funcsGlobalTempleVars ~= &this.toGlobalVars;
 	}
 
-	public void toGlobalVars(TempleContext context, HTTPServerRequest req, HTTPServerResponse res)
+	override
 	{
-		context.userLogin = users.getLogin(req);
-		context.userAutho = funcs.isAuthorized(req);
-	}
+		void install ()
+		{
+			super.install();
+			this.initializeForDB();
+		}
 
-	// encryption of password sha224
-	public static ubyte[28] encryptionPass(string pass)
-	{
-		ubyte[28] hash224 = sha224Of(pass);
-		return hash224; //toHexString(hash224);
+		void toGlobalVars(TempleContext context, HTTPServerRequest req, HTTPServerResponse res)
+		{
+			context.userLogin = usersModel.getLogin(req);
+			context.userAutho = Users.isAutho(req);
+		}
 	}
 }
-alias UsersCtr = UsersController;

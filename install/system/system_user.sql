@@ -1,0 +1,9 @@
+/* SUPERUSER */
+
+-- system user
+
+CREATE USER indcms_system WITH PASSWORD '1' CREATEROLE;
+
+GRANT CONNECT, TEMPORARY ON DATABASE indcms TO public;
+GRANT ALL PRIVILEGES ON DATABASE indcms TO indcms_system;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO indcms_system;

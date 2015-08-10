@@ -1,14 +1,12 @@
 % import std.conv;
 
-<div id="authorizetion">
-Здравствуйте, 
+<div>Здравствуйте, 
 % if(var("userAutho").get!bool) {
-    <a href="/users/profile/<%= var("userLogin") %>"><%= var("userLogin") %></a><br>
-    <a href="/users/out.dhtml">Выход</a>
+    <a href="/users/profile/<%= var("userLogin") %>"><%= var("userLogin") %></a></div>
+    <div><a href="/users/out.dhtml">Выход</a></div>
 % } else {
-	<%= var("userLogin") %><br>
-	<a href="/users/in.dhtml">Войти</a><br>
-	<a href="/users/reg.dhtml">Регистрация</a>
+	<%= var("userLogin") %></div>
+	<div><a href="/users/in.dhtml">Войти</a></div>
+	<div><a href="/users/reg.dhtml">Регистрация</a></div>
 % }
-</div>
 
