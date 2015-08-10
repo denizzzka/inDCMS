@@ -21,7 +21,7 @@
 	"stringImportPaths": [
 		"./views/",
 		"./views/users/",
-		"../.dub/packages/temple-0.7.3/test/"
+		"../../../.dub/packages/temple-0.7.3/test/"
 	],
 	"license": "MIT License"
 }
