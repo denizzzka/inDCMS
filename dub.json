@@ -12,6 +12,12 @@
 		"TempleUnittest",
 		"VibeDefaultMain", 
 	],
+	"configurations": [
+		{
+			"name": "production",
+			"targetType": "executable"
+		}
+	],
 	"stringImportPaths": ["./views/", "./views/users/"],
 	"license": "MIT License"
 }
