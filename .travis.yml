@@ -1,0 +1,12 @@
+language: d
+
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - debian-sid
+
+script:
+  - nohup dub run --coverage --debug &
+  - wget http://127.0.0.1:8000/
