@@ -10,5 +10,14 @@ addons:
     sources:
       - debian-sid
 
+install:
+  # Coverage send tool:
+  - dub fetch doveralls
+
 script:
   - dub build
+  - dub test --coverage; true # Always return true, because currently successful automatic run isn't possible
+
+after_success:
+  # Sends coverage info:
+  - dub run doveralls
