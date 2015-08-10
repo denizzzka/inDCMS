@@ -1,5 +1,5 @@
 ﻿# inDCMS
-[![Build Status](https://travis-ci.org/denizzzka/inDCMS.svg?branch=master)](https://travis-ci.org/denizzzka/inDCMS)
+[![Build Status](https://travis-ci.org/DarkRiDDeR/inDCMS.svg?branch=master)](https://travis-ci.org/DarkRiDDeR/inDCMS)
 
 Micro content management system written in the programming language D using vibe.d framework (Russia)
 Микро система управления контентом, написанная на языке программирования D при помощи веб-фреймвора vibe.d.
