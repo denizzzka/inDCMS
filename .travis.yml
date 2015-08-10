@@ -8,5 +8,4 @@ addons:
       - debian-sid
 
 script:
-  - nohup dub run --coverage --debug &
-
+  - dub build --debug
