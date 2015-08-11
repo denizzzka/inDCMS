@@ -1,5 +1,0 @@
-% import std.conv;
-<%= render!"head.dte"() %>
-	Главная страница
-<%= render!"sidebar.dte"() %>
-<%= render!"footer.dte"() %>
