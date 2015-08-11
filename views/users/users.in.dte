@@ -1,0 +1,16 @@
+<%= render!"head.dte"() %>
+
+% if(!var("isAutho").get!bool) {
+
+<form action="?" method="post">
+	<label>Логин (цифры, англ. алфавит, символы _ и -)[4-20]:</label>
+	<input name="login" type="text" maxlength="20" pattern="^[\\da-zA-Z_-]{4,}$" autofocus required>
+	<label>Пароль [5-20]:</label>
+	<input name="pass" type="password" maxlength="20" pattern="^.{5,}$" required>
+	<input type="submit" value="Войти">
+</form>
+
+% }
+
+<%= render!"sidebar.dte"() %>
+<%= render!"footer.dte"() %>
