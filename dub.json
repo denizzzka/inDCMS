@@ -6,7 +6,7 @@
 
 
 	"dependencies": {
-		"vibe-d": "~>0.7.19",
+		"vibe-d": ">=0.7.19 <=0.7.23",
 	},
 	"dependencies": {
 		"temple": "~>0.7.3"
