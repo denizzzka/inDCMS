@@ -10,5 +10,15 @@ addons:
     sources:
       - debian-sid
 
+install:
+  # Downloads and compiles dscanner - tool for analyzing D source code
+  - git clone --depth=1 --recursive https://github.com/Hackerpilot/Dscanner.git ~/Dscanner
+  - if [ ${DC} = "dmd" ]; then make -C ~/Dscanner; fi
+
 script:
+  # Dscanner check
+  - if [ ${DC} = "dmd" ]; then ~/Dscanner/bin/dscanner -s --config=.dscanner.ini; fi
+  - if [ ${DC} = "dmd" ]; then ~/Dscanner/bin/dscanner -S --config=.dscanner.ini; fi
+
+  # Main check
   - dub build
